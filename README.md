@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GreenRoots Community — Sustainability & Environmental Protection</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+        }
+      }
+    }
+  </script>
+  <style>
+    ::selection { background: #d1fae5; color: #064e3b; }
+    .glass-panel {
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.18);
+    }
+    .hero-gradient {
+      background: linear-gradient(135deg, #064e3b 0%, #065f46 25%, #047857 50%, #059669 75%, #10b981 100%);
+    }
+    .card-hover { transition: all 300ms cubic-bezier(0.4,0,0.2,1); }
+    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1); }
+    .fade-up {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .counter { font-variant-numeric: tabular-nums; }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    .float-anim { animation: float 6s ease-in-out infinite; }
+    .float-anim-delay { animation: float 6s ease-in-out 2s infinite; }
+    @keyframes pulse-ring {
+      0% { transform: scale(1); opacity: 0.4; }
+      100% { transform: scale(1.5); opacity: 0; }
+    }
+    .pulse-ring::before {
+      content: ''; position: absolute; inset: -4px;
+      border-radius: 50%; border: 2px solid #10b981;
+      animation: pulse-ring 2s ease-out infinite;
+    }
+    .nav-active { color: #059669; }
+    .toast {
+      transform: translateY(100px); opacity: 0;
+      transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+  </style>
+</head>
+<body class="font-sans bg-white text-zinc-900 antialiased">
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast fixed bottom-6 right-6 z-[100] bg-emerald-600 text-white px-6 py-4 rounded-xl shadow-xl flex items-center gap-3 max-w-sm">
+    <i data-lucide="check-circle" class="w-5 h-5 flex-shrink-0"></i>
+    <span id="toast-msg" class="text-sm font-medium">Message sent successfully!</span>
+  </div>
+
+  <!-- ==================== NAVIGATION ==================== -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="mt-4 rounded-2xl px-6 py-4 flex items-center justify-between transition-all duration-300" id="nav-inner">
+        <!-- Logo -->
+        <a href="#hero" class="flex items-center gap-2.5">
+          <div class="w-9 h-9 bg-emerald-600 rounded-lg flex items-center justify-center">
+            <i data-lucide="leaf" class="w-5 h-5 text-white"></i>
+          </div>
+          <span class="text-lg font-semibold tracking-tight nav-text-color">GreenRoots</span>
+        </a>
+        <!-- Desktop Links -->
+        <div class="hidden md:flex items-center gap-8">
+          <a href="#about" class="text-sm font-medium nav-link-color hover:text-emerald-600 transition-colors duration-150">About</a>
+          <a href="#education" class="text-sm font-medium nav-link-color hover:text-emerald-600 transition-colors duration-150">Education</a>
+          <a href="#sustainability" class="text-sm font-medium nav-link-color hover:text-emerald-600 transition-colors duration-150">Sustainability</a>
+          <a href="#livelihoods" class="text-sm font-medium nav-link-color hover:text-emerald-600 transition-colors duration-150">Livelihoods</a>
+          <a href="#participate" class="text-sm font-medium nav-link-color hover:text-emerald-600 transition-colors duration-150">Get Involved</a>
+          <a href="#contact" class="bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium px-5 py-2.5 rounded-xl transition-all duration-150 hover:shadow-lg">
+            Contact Us
+          </a>
+        </div>
+        <!-- Mobile Menu Button -->
+        <button id="mobile-toggle" class="md:hidden p-2 rounded-lg hover:bg-zinc-100 transition-colors">
+          <i data-lucide="menu" class="w-5 h-5 nav-link-color" id="menu-icon"></i>
+        </button>
+      </div>
+    </div>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="md:hidden hidden mx-4 mt-2 rounded-2xl bg-white/95 backdrop-blur-xl border border-zinc-200 shadow-xl overflow-hidden">
+      <div class="px-6 py-4 flex flex-col gap-1">
+        <a href="#about" class="mobile-link py-3 text-sm font-medium text-zinc-700 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg px-3 transition-all">About</a>
+        <a href="#education" class="mobile-link py-3 text-sm font-medium text-zinc-700 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg px-3 transition-all">Education</a>
+        <a href="#sustainability" class="mobile-link py-3 text-sm font-medium text-zinc-700 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg px-3 transition-all">Sustainability</a>
+        <a href="#livelihoods" class="mobile-link py-3 text-sm font-medium text-zinc-700 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg px-3 transition-all">Livelihoods</a>
+        <a href="#participate" class="mobile-link py-3 text-sm font-medium text-zinc-700 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg px-3 transition-all">Get Involved</a>
+        <a href="#contact" class="mt-2 bg-emerald-600 text-white text-sm font-medium px-4 py-3 rounded-xl text-center">Contact Us</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ==================== HERO SECTION ==================== -->
+  <section id="hero" class="hero-gradient relative min-h-screen flex items-center overflow-hidden">
+    <!-- Decorative Elements -->
+    <div class="absolute top-20 left-10 w-72 h-72 bg-emerald-400/20 rounded-full blur-3xl float-anim"></div>
+    <div class="absolute bottom-20 right-10 w-96 h-96 bg-green-300/15 rounded-full blur-3xl float-anim-delay"></div>
+    <div class="absolute top-1/3 right-1/4 w-48 h-48 bg-teal-400/10 rounded-full blur-2xl"></div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20 lg:pt-40 lg:pb-32">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <!-- Left Content -->
+        <div class="text-center lg:text-left">
+          <div class="inline-flex items-center gap-2 glass-panel rounded-full px-4 py-2 mb-8">
+            <span class="relative flex h-2.5 w-2.5">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-300 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400"></span>
+            </span>
+            <span class="text-emerald-100 text-xs font-medium uppercase tracking-wider">Building a Greener Future</span>
+          </div>
+
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-semibold text-white leading-[1.1] tracking-tight mb-6">
+            Protect Our
+            <span class="block mt-1">Environment,</span>
+            <span class="block mt-1 text-emerald-300">Empower Our Community</span>
+          </h1>
+
+          <p class="text-lg sm:text-xl text-emerald-100/80 leading-relaxed max-w-xl mx-auto lg:mx-0 mb-10">
+            Educating communities, promoting sustainable resource use, supporting livelihoods, and ensuring long-term environmental protection for generations to come.
+          </p>
+
+          <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+            <a href="#participate" class="bg-white text-emerald-800 px-8 py-4 rounded-xl text-base font-medium hover:bg-emerald-50 transition-all duration-150 hover:shadow-xl inline-flex items-center justify-center gap-2 group">
+              Get Involved
+              <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform duration-150"></i>
+            </a>
+            <a href="#about" class="glass-panel text-white px-8 py-4 rounded-xl text-base font-medium hover:bg-white/20 transition-all duration-150 inline-flex items-center justify-center gap-2">
+              <i data-lucide="play-circle" class="w-5 h-5"></i>
+              Learn More
+            </a>
+          </div>
+
+          <!-- Stats -->
+          <div class="grid grid-cols-3 gap-6 mt-14 pt-10 border-t border-white/15">
+            <div>
+              <div class="text-2xl sm:text-3xl font-semibold text-white counter" data-target="500">0</div>
+              <div class="text-xs sm:text-sm text-emerald-200/70 mt-1">Community Members</div>
+            </div>
+            <div>
+              <div class="text-2xl sm:text-3xl font-semibold text-white counter" data-target="12">0</div>
+              <div class="text-xs sm:text-sm text-emerald-200/70 mt-1">Active Programs</div>
+            </div>
+            <div>
+              <div class="text-2xl sm:text-3xl font-semibold text-white counter" data-target="85">0</div>
+              <div class="text-xs sm:text-sm text-emerald-200/70 mt-1">Trees Planted (K+)</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Image -->
+        <div class="hidden lg:block relative">
+          <div class="relative">
+            <img src="https://picsum.photos/seed/greenforest/600/700.jpg" alt="Community environmental conservation" class="rounded-3xl shadow-2xl object-cover w-full h-[600px]">
+            <div class="absolute inset-0 rounded-3xl bg-gradient-to-t from-emerald-900/30 to-transparent"></div>
+          </div>
+          <!-- Floating Card 1 -->
+          <div class="absolute -left-10 bottom-24 glass-panel rounded-2xl p-5 float-anim shadow-xl">
+            <div class="flex items-center gap-3">
+              <div class="w-11 h-11 bg-emerald-400/20 rounded-xl flex items-center justify-center">
+                <i data-lucide="trees" class="w-5 h-5 text-emerald-300"></i>
+              </div>
+              <div>
+                <div class="text-white text-sm font-semibold">Reforestation</div>
+                <div class="text-emerald-200/70 text-xs">1,200+ trees this year</div>
+              </div>
+            </div>
+          </div>
+          <!-- Floating Card 2 -->
+          <div class="absolute -right-6 top-20 glass-panel rounded-2xl p-5 float-anim-delay shadow-xl">
+            <div class="flex items-center gap-3">
+              <div class="w-11 h-11 bg-green-400/20 rounded-xl flex items-center justify-center">
+                <i data-lucide="users" class="w-5 h-5 text-green-300"></i>
+              </div>
+              <div>
+                <div class="text-white text-sm font-semibold">Volunteers</div>
+                <div class="text-emerald-200/70 text-xs">Growing every month</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Wave -->
+    <div class="absolute bottom-0 left-0 right-0">
+      <svg viewBox="0 0 1440 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 50L48 45C96 40 192 30 288 33C384 36 480 52 576 58C672 64 768 60 864 52C960 44 1056 32 1152 30C1248 28 1344 36 1392 40L1440 44V100H1392C1344 100 1248 100 1152 100C1056 100 960 100 864 100C768 100 672 100 576 100C480 100 384 100 288 100C192 100 96 100 48 100H0V50Z" fill="white"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ==================== ABOUT SECTION ==================== -->
+  <section id="about" class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <!-- Image Grid -->
+        <div class="grid grid-cols-2 gap-4 fade-up">
+          <img src="https://picsum.photos/seed/communitytree/400/500.jpg" alt="Community tree planting" class="rounded-2xl object-cover w-full h-64 sm:h-80 mt-8">
+          <img src="https://picsum.photos/seed/riverclean/400/400.jpg" alt="River cleanup" class="rounded-2xl object-cover w-full h-48 sm:h-64">
+          <img src="https://picsum.photos/seed/organicfarm/400/400.jpg" alt="Organic farming" class="rounded-2xl object-cover w-full h-48 sm:h-64">
+          <img src="https://picsum.photos/seed/workshop22/400/500.jpg" alt="Community workshop" class="rounded-2xl object-cover w-full h-64 sm:h-80 -mt-8">
+        </div>
+
+        <!-- Text Content -->
+        <div class="fade-up">
+          <div class="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 rounded-full px-4 py-2 mb-6">
+            <i data-lucide="heart" class="w-4 h-4"></i>
+            <span class="text-xs font-medium uppercase tracking-wider">Our Mission</span>
+          </div>
+
+          <h2 class="text-3xl sm:text-4xl font-semibold tracking-tight text-zinc-900 mb-6">
+            Rooted in Community, Growing for the Future
+          </h2>
+
+          <p class="text-zinc-600 leading-relaxed text-base mb-6">
+            Founded by <strong class="text-zinc-900">Gira Jonathan</strong>, GreenRoots Community was born from the belief that environmental protection and community development go hand in hand. We work at the intersection of ecology and economy, ensuring that sustainability translates into real benefits for local families.
+          </p>
+
+          <p class="text-zinc-600 leading-relaxed text-base mb-8">
+            Our approach is holistic — we don't just plant trees or run workshops. We build systems where education leads to action, where sustainable practices generate income, and where every community member becomes a guardian of their environment.
+          </p>
+
+          <div class="space-y-4 mb-8">
+            <div class="flex items-start gap-3">
+              <div class="w-6 h-6 bg-emerald-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600"></i>
+              </div>
+              <span class="text-zinc-700 text-sm">Community-driven environmental education programs</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-6 h-6 bg-emerald-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600"></i>
+              </div>
+              <span class="text-zinc-700 text-sm">Sustainable resource management and conservation</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-6 h-6 bg-emerald-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600"></i>
+              </div>
+              <span class="text-zinc-700 text-sm">Income generation through green enterprises</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-6 h-6 bg-emerald-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600"></i>
+              </div>
+              <span class="text-zinc-700 text-sm">Long-term sustainability for future generations</span>
+            </div>
+          </div>
+
+          <a href="#education" class="inline-flex items-center gap-2 text-emerald-600 font-medium text-sm hover:text-emerald-700 transition-colors group">
+            Explore our programs
+            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform duration-150"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== EDUCATION SECTION ==================== -->
+  <section id="education" class="py-24 bg-zinc-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-16 fade-up">
+        <div class="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 rounded-full px-4 py-2 mb-6">
+          <i data-lucide="graduation-cap" class="w-4 h-4"></i>
+          <span class="text-xs font-medium uppercase tracking-wider">Education</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-semibold tracking-tight text-zinc-900 mb-4">
+          Knowledge is the Root of Change
+        </h2>
+        <p class="text-zinc-500 leading-relaxed">
+          We empower communities with practical environmental knowledge through workshops, field training, and hands-on learning experiences.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Card 1 -->
+        <div class="bg-white rounded-2xl p-8 card-hover fade-up border border-zinc-100">
+          <div class="w-14 h-14 bg-emerald-100 rounded-2xl flex items-center justify-center mb-6">
+            <i data-lucide="book-open" class="w-6 h-6 text-emerald-600"></i>
+          </div>
+          <h3 class="text-xl font-semibold tracking-tight mb-3">Environmental Workshops</h3>
+          <p class="text-zinc-500 text-sm leading-relaxed mb-6">
+            Monthly workshops covering topics from soil health and water conservation to waste management and biodiversity protection. Open to all community members.
+          </p>
+          <ul class="space-y-2">
+            <li class="flex items-center gap-2 text-sm text-zinc-600">
+              <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500"></i>
+              Soil & water conservation
+            </li>
+            <li class="flex items-center gap-2 text-sm text-zinc-600">
+              <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500"></i>
+              Waste management basics
+            </li>
+            <li class="flex items-center gap-2 text-sm text-zinc-600">
+              <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500"></i>
+              Biodiversity awareness
+            </li>
+          </ul>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="bg-white rounded-2xl p-8 card-hover fade-up border border-zinc-100" style="transition-delay: 100ms">
+          <div class="w-14 h-14 bg-green-100 rounded-2xl flex items-center justify-center mb-6">
+            <i data-lucide="sprout" class="w-6 h-6 text-green-600"></i>
+          </div>
+          <h3 class="text-xl font-semibold tracking-tight mb-3">Youth Eco-Clubs</h3>
+          <p class="text-zinc-500 text-sm leading-relaxed mb-6">
+            Engaging young people through school-based eco-clubs that nurture the next generation of environmental stewards through fun, practical activities.
+          </p>
+          <ul class="space-y-2">
+            <li class="flex items-center gap-2 text-sm text-zinc-600">
+              <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500"></i>
+              School garden projects
+            </li>
+            <li class="flex items-center gap-2 text-sm text-zinc-600">
+              <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500"></i>
+              Nature walks & bird watching
+            </li>
+            <li class="flex items-center gap-2 text-sm text-zinc-600">
+              <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500"></i>
+              Eco-quiz competitions
+            </li>
+          </ul>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="bg-white rounded-2xl p-8 card-hover fade-up border border-zinc-100" style="transition-delay: 200ms">
+          <div class="w-14 h-14 bg-teal-100 rounded-2xl flex items-center justify-center mb-6">
+            <i data-lucide="monitor-play" class="w-6 h-6 text-teal-600"></i>
+          </div>
+          <h3 class="text-xl font-semibold tracking-tight mb-3">Digital Learning Hub</h3>
+          <p class="text-zinc-500 text-sm leading-relaxed mb-6">
+            Accessible video tutorials and online resources on sustainable farming, renewable energy, and conservation techniques — available on any phone.
+          </p>
+          <ul class="space-y-2">
+            <li class="flex items-center gap-2 text-sm text-zinc-600">
+              <i data-lucide="check-circle-2" class="w-4 h-4 text-teal-500"></i>
+              Video tutorials
+            </li>
+            <li class="flex items-center gap-2 text-sm text-zinc-600">
+              <i data-lucide="check-circle-2" class="w-4 h-4 text-teal-500"></i>
+              WhatsApp learning groups
+            </li>
+            <li class="flex items-center gap-2 text-sm text-zinc-600">
+              <i data-lucide="check-circle-2" class="w-4 h-4 text-teal-500"></i>
+              Downloadable guides
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SUSTAINABILITY SECTION ==================== -->
+  <section id="sustainability" class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <!-- Text -->
+        <div class="fade-up">
+          <div class="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 rounded-full px-4 py-2 mb-6">
+            <i data-lucide="recycle" class="w-4 h-4"></i>
+            <span class="text-xs font-medium uppercase tracking-wider">Sustainable Resources</span>
+          </div>
+
+          <h2 class="text-3xl sm:text-4xl font-semibold tracking-tight text-zinc-900 mb-6">
+            Using Resources Wisely, Protecting What Matters
+          </h2>
+
+          <p class="text-zinc-500 leading-relaxed mb-8">
+            Sustainability isn't just a buzzword — it's a way of life. We help communities transition from extractive practices to regenerative ones, ensuring local resources serve both people and planet for generations.
+          </p>
+
+          <div class="grid sm:grid-cols-2 gap-6">
+            <div class="bg-zinc-50 rounded-xl p-5 border border-zinc-100">
+              <div class="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center mb-3">
+                <i data-lucide="droplets" class="w-5 h-5 text-emerald-600"></i>
+              </div>
+              <h4 class="font-semibold text-sm mb-1">Water Conservation</h4>
+              <p class="text-zinc-500 text-xs leading-relaxed">Rainwater harvesting, spring protection, and efficient irrigation systems.</p>
+            </div>
+            <div class="bg-zinc-50 rounded-xl p-5 border border-zinc-100">
+              <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mb-3">
+                <i data-lucide="sun" class="w-5 h-5 text-green-600"></i>
+              </div>
+              <h4 class="font-semibold text-sm mb-1">Clean Energy</h4>
+              <p class="text-zinc-500 text-xs leading-relaxed">Solar lighting, improved cookstoves, and renewable energy advocacy.</p>
+            </div>
+            <div class="bg-zinc-50 rounded-xl p-5 border border-zinc-100">
+              <div class="w-10 h-10 bg-teal-100 rounded-lg flex items-center justify-center mb-3">
+                <i data-lucide="leaf" class="w-5 h-5 text-teal-600"></i>
+              </div>
+              <h4 class="font-semibold text-sm mb-1">Agroforestry</h4>
+              <p class="text-zinc-500 text-xs leading-relaxed">Integrating trees with crops for soil health, shade, and diversified income.</p>
+            </div>
+            <div class="bg-zinc-50 rounded-xl p-5 border border-zinc-100">
+              <div class="w-10 h-10 bg-lime-100 rounded-lg flex items-center justify-center mb-3">
+                <i data-lucide="trash-2" class="w-5 h-5 text-lime-600"></i>
+              </div>
+              <h4 class="font-semibold text-sm mb-1">Waste Management</h4>
+              <p class="text-zinc-500 text-xs leading-relaxed">Composting, recycling, and turning waste into useful products.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Image -->
+        <div class="relative fade-up">
+          <img src="https://picsum.photos/seed/sustainablefarm/600/700.jpg" alt="Sustainable farming practices" class="rounded-3xl object-cover w-full h-[550px] shadow-xl">
+          <div class="absolute -bottom-6 -left-6 bg-white rounded-2xl shadow-xl p-6 max-w-xs border border-zinc-100">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 bg-emerald-600 rounded-lg flex items-center justify-center">
+                <i data-lucide="trending-up" class="w-5 h-5 text-white"></i>
+              </div>
+              <div>
+                <div class="text-2xl font-semibold text-zinc-900">40%</div>
+                <div class="text-xs text-zinc-500">Resource waste reduction</div>
+              </div>
+            </div>
+            <p class="text-xs text-zinc-500">Communities in our program have reduced resource waste by 40% on average.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== LIVELIHOODS SECTION ==================== -->
+  <section id="livelihoods" class="py-24 bg-zinc-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-16 fade-up">
+        <div class="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 rounded-full px-4 py-2 mb-6">
+          <i data-lucide="wallet" class="w-4 h-4"></i>
+          <span class="text-xs font-medium uppercase tracking-wider">Income Generation</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-semibold tracking-tight text-zinc-900 mb-4">
+          Green Livelihoods, Thriving Communities
+        </h2>
+        <p class="text-zinc-500 leading-relaxed">
+          Environmental protection must pay — literally. We support community members in building sustainable incomes from green enterprises.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Livelihood Card 1 -->
+        <div class="bg-white rounded-2xl overflow-hidden card-hover fade-up border border-zinc-100 group">
+          <div class="relative h-48 overflow-hidden">
+            <img src="https://picsum.photos/seed/honeybee/400/300.jpg" alt="Beekeeping" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+            <div class="absolute bottom-3 left-3">
+              <span class="bg-emerald-600 text-white text-xs font-medium px-3 py-1 rounded-full">Popular</span>
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="font-semibold tracking-tight mb-2">Beekeeping</h3>
+            <p class="text-zinc-500 text-sm leading-relaxed">Harvest honey and beeswax products while supporting pollination and biodiversity.</p>
+          </div>
+        </div>
+
+        <!-- Livelihood Card 2 -->
+        <div class="bg-white rounded-2xl overflow-hidden card-hover fade-up border border-zinc-100 group" style="transition-delay: 100ms">
+          <div class="relative h-48 overflow-hidden">
+            <img src="https://picsum.photos/seed/seedlings99/400/300.jpg" alt="Nursery" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+          </div>
+          <div class="p-6">
+            <h3 class="font-semibold tracking-tight mb-2">Tree Nurseries</h3>
+            <p class="text-zinc-500 text-sm leading-relaxed">Grow and sell fruit, timber, and medicinal tree seedlings for local planting.</p>
+          </div>
+        </div>
+
+        <!-- Livelihood Card 3 -->
+        <div class="bg-white rounded-2xl overflow-hidden card-hover fade-up border border-zinc-100 group" style="transition-delay: 200ms">
+          <div class="relative h-48 overflow-hidden">
+            <img src="https://picsum.photos/seed/organicveg/400/300.jpg" alt="Organic produce" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+          </div>
+          <div class="p-6">
+            <h3 class="font-semibold tracking-tight mb-2">Organic Farming</h3>
+            <p class="text-zinc-500 text-sm leading-relaxed">Grow chemical-free vegetables and herbs for local markets and household nutrition.</p>
+          </div>
+        </div>
+
+        <!-- Livelihood Card 4 -->
+        <div class="bg-white rounded-2xl overflow-hidden card-hover fade-up border border-zinc-100 group" style="transition-delay: 300ms">
+          <div class="relative h-48 overflow-hidden">
+            <img src="https://picsum.photos/seed/ecoart/400/300.jpg" alt="Eco crafts" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+          </div>
+          <div class="p-6">
+            <h3 class="font-semibold tracking-tight mb-2">Eco-Crafts</h3>
+            <p class="text-zinc-500 text-sm leading-relaxed">Create handicrafts from recycled and natural materials for sale at local markets.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Impact Banner -->
+      <div class="mt-16 bg-emerald-600 rounded-3xl p-8 sm:p-12 fade-up relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-emerald-500/30 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+        <div class="relative grid sm:grid-cols-3 gap-8 text-center">
+          <div>
+            <div class="text-3xl sm:text-4xl font-semibold text-white counter" data-target="150">0</div>
+            <div class="text-emerald-100 text-sm mt-1">Families supported with green income</div>
+          </div>
+          <div>
+            <div class="text-3xl sm:text-4xl font-semibold text-white counter" data-target="60">0</div>
+            <div class="text-emerald-100 text-sm mt-1">Average income increase (%)</div>
+          </div>
+          <div>
+            <div class="text-3xl sm:text-4xl font-semibold text-white counter" data-target="8">0</div>
+            <div class="text-emerald-100 text-sm mt-1">Green enterprise types</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PARTICIPATION / GET INVOLVED ==================== -->
+  <section id="participate" class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-16">
+        <!-- Left: Image & Quote -->
+        <div class="fade-up">
+          <img src="https://picsum.photos/seed/volunteerwork/600/500.jpg" alt="Community volunteers working together" class="rounded-3xl object-cover w-full h-[400px] shadow-xl mb-8">
+
+          <div class="bg-zinc-50 rounded-2xl p-8 border border-zinc-100">
+            <i data-lucide="quote" class="w-8 h-8 text-emerald-300 mb-4"></i>
+            <p class="text-zinc-700 leading-relaxed italic mb-4">
+              "The environment doesn't belong to us — we belong to it. When we protect our land, our water, our forests, we are protecting our children's future. Every small action counts."
+            </p>
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 bg-emerald-600 rounded-full flex items-center justify-center">
+                <span class="text-white text-sm font-semibold">GJ</span>
+              </div>
+              <div>
+                <div class="text-sm font-semibold text-zinc-900">Gira Jonathan</div>
+                <div class="text-xs text-zinc-500">Founder, GreenRoots Community</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Ways to Participate -->
+        <div class="fade-up">
+          <div class="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 rounded-full px-4 py-2 mb-6">
+            <i data-lucide="hand-heart" class="w-4 h-4"></i>
+            <span class="text-xs font-medium uppercase tracking-wider">Get Involved</span>
+          </div>
+
+          <h2 class="text-3xl sm:text-4xl font-semibold tracking-tight text-zinc-900 mb-4">
+            Your Participation Makes the Difference
+          </h2>
+          <p class="text-zinc-500 leading-relaxed mb-10">
+            Whether you have time, skills, or resources to share, there's a place for you in the GreenRoots community. Here's how you can help:
+          </p>
+
+          <div class="space-y-5">
+            <!-- Step 1 -->
+            <div class="flex gap-5 group">
+              <div class="flex-shrink-0 w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center group-hover:bg-emerald-600 transition-colors duration-300">
+                <i data-lucide="users" class="w-5 h-5 text-emerald-600 group-hover:text-white transition-colors duration-300"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold text-sm mb-1">Volunteer With Us</h4>
+                <p class="text-zinc-500 text-sm leading-relaxed">Join tree planting days, clean-up campaigns, and community workshops. No experience needed — just bring your energy.</p>
+              </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="flex gap-5 group">
+              <div class="flex-shrink-0 w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center group-hover:bg-green-600 transition-colors duration-300">
+                <i data-lucide="share-2" class="w-5 h-5 text-green-600 group-hover:text-white transition-colors duration-300"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold text-sm mb-1">Spread the Word</h4>
+                <p class="text-zinc-500 text-sm leading-relaxed">Follow us on social media, share our content, and tell your friends about sustainable practices. Awareness is the first step.</p>
+              </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="flex gap-5 group">
+              <div class="flex-shrink-0 w-12 h-12 bg-teal-100 rounded-xl flex items-center justify-center group-hover:bg-teal-600 transition-colors duration-300">
+                <i data-lucide="lightbulb" class="w-5 h-5 text-teal-600 group-hover:text-white transition-colors duration-300"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold text-sm mb-1">Share Your Skills</h4>
+                <p class="text-zinc-500 text-sm leading-relaxed">Are you a farmer, teacher, artist, or tech person? Your skills can support our programs in countless ways.</p>
+              </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="flex gap-5 group">
+              <div class="flex-shrink-0 w-12 h-12 bg-lime-100 rounded-xl flex items-center justify-center group-hover:bg-lime-600 transition-colors duration-300">
+                <i data-lucide="tree-pine" class="w-5 h-5 text-lime-600 group-hover:text-white transition-colors duration-300"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold text-sm mb-1">Adopt Sustainable Practices</h4>
+                <p class="text-zinc-500 text-sm leading-relaxed">Start in your own home — reduce waste, conserve water, plant a tree, use eco-friendly products. Lead by example.</p>
+              </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="flex gap-5 group">
+              <div class="flex-shrink-0 w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center group-hover:bg-emerald-600 transition-colors duration-300">
+                <i data-lucide="handshake" class="w-5 h-5 text-emerald-600 group-hover:text-white transition-colors duration-300"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold text-sm mb-1">Partner With Us</h4>
+                <p class="text-zinc-500 text-sm leading-relaxed">Organizations, schools, and businesses can collaborate with us on projects that create lasting environmental impact.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PROTECTION / IMPACT SECTION ==================== -->
+  <section class="py-24 bg-zinc-900 relative overflow-hidden">
+    <!-- Decorative -->
+    <div class="absolute top-0 left-1/4 w-96 h-96 bg-emerald-900/20 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 right-1/4 w-72 h-72 bg-emerald-800/15 rounded-full blur-3xl"></div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-16 fade-up">
+        <div class="inline-flex items-center gap-2 bg-emerald-900/50 text-emerald-400 rounded-full px-4 py-2 mb-6 border border-emerald-800/50">
+          <i data-lucide="shield-check" class="w-4 h-4"></i>
+          <span class="text-xs font-medium uppercase tracking-wider">Environmental Protection</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-semibold tracking-tight text-white mb-4">
+          Our Impact on the Ground
+        </h2>
+        <p class="text-zinc-400 leading-relaxed">
+          Real results from real community action. Every number represents lives improved and ecosystems protected.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-zinc-800/60 backdrop-blur-sm rounded-2xl p-8 text-center border border-zinc-700/50 card-hover fade-up">
+          <div class="w-14 h-14 bg-emerald-900/50 rounded-2xl flex items-center justify-center mx-auto mb-5">
+            <i data-lucide="trees" class="w-7 h-7 text-emerald-400"></i>
+          </div>
+          <div class="text-3xl font-semibold text-white counter" data-target="85000">0</div>
+          <div class="text-emerald-400 text-sm font-medium mt-1">Trees Planted</div>
+          <div class="text-zinc-500 text-xs mt-2">Across 15 community sites</div>
+        </div>
+
+        <div class="bg-zinc-800/60 backdrop-blur-sm rounded-2xl p-8 text-center border border-zinc-700/50 card-hover fade-up" style="transition-delay: 100ms">
+          <div class="w-14 h-14 bg-green-900/50 rounded-2xl flex items-center justify-center mx-auto mb-5">
+            <i data-lucide="droplets" class="w-7 h-7 text-green-400"></i>
+          </div>
+          <div class="text-3xl font-semibold text-white counter" data-target="20">0</div>
+          <div class="text-green-400 text-sm font-medium mt-1">Water Sources Protected</div>
+          <div class="text-zinc-500 text-xs mt-2">Springs & catchments</div>
+        </div>
+
+        <div class="bg-zinc-800/60 backdrop-blur-sm rounded-2xl p-8 text-center border border-zinc-700/50 card-hover fade-up" style="transition-delay: 200ms">
+          <div class="w-14 h-14 bg-teal-900/50 rounded-2xl flex items-center justify-center mx-auto mb-5">
+            <i data-lucide="users" class="w-7 h-7 text-teal-400"></i>
+          </div>
+          <div class="text-3xl font-semibold text-white counter" data-target="500">0</div>
+          <div class="text-teal-400 text-sm font-medium mt-1">People Trained</div>
+          <div class="text-zinc-500 text-xs mt-2">In sustainable practices</div>
+        </div>
+
+        <div class="bg-zinc-800/60 backdrop-blur-sm rounded-2xl p-8 text-center border border-zinc-700/50 card-hover fade-up" style="transition-delay: 300ms">
+          <div class="w-14 h-14 bg-lime-900/50 rounded-2xl flex items-center justify-center mx-auto mb-5">
+            <i data-lucide="map-pin" class="w-7 h-7 text-lime-400"></i>
+          </div>
+          <div class="text-3xl font-semibold text-white counter" data-target="6">0</div>
+          <div class="text-lime-400 text-sm font-medium mt-1">Villages Reached</div>
+          <div class="text-zinc-500 text-xs mt-2">And still expanding</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== GALLERY SECTION ==================== -->
+  <section class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-12 fade-up">
+        <h2 class="text-3xl sm:text-4xl font-semibold tracking-tight text-zinc-900 mb-4">Moments from the Field</h2>
+        <p class="text-zinc-500 leading-relaxed">A glimpse into the community work that drives our mission forward every day.</p>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 fade-up">
+        <img src="https://picsum.photos/seed/treeplant1/400/400.jpg" alt="Tree planting activity" class="rounded-2xl object-cover w-full h-48 sm:h-56 hover:opacity-90 transition-opacity duration-300">
+        <img src="https://picsum.photos/seed/cleanup2/400/400.jpg" alt="Community cleanup" class="rounded-2xl object-cover w-full h-48 sm:h-56 hover:opacity-90 transition-opacity duration-300">
+        <img src="https://picsum.photos/seed/training3/400/400.jpg" alt="Training session" class="rounded-2xl object-cover w-full h-48 sm:h-56 hover:opacity-90 transition-opacity duration-300">
+        <img src="https://picsum.photos/seed/harvest4/400/400.jpg" alt="Harvest season" class="rounded-2xl object-cover w-full h-48 sm:h-56 hover:opacity-90 transition-opacity duration-300">
+        <img src="https://picsum.photos/seed/water5/400/400.jpg" alt="Water source protection" class="rounded-2xl object-cover w-full h-48 sm:h-56 hover:opacity-90 transition-opacity duration-300 col-span-2 md:col-span-2 h-64 sm:h-72">
+        <img src="https://picsum.photos/seed/market6/400/400.jpg" alt="Local market" class="rounded-2xl object-cover w-full h-48 sm:h-56 hover:opacity-90 transition-opacity duration-300">
+        <img src="https://picsum.photos/seed/nursery7/400/400.jpg" alt="Tree nursery" class="rounded-2xl object-cover w-full h-48 sm:h-56 hover:opacity-90 transition-opacity duration-300">
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CONTACT SECTION ==================== -->
+  <section id="contact" class="py-24 bg-zinc-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-16">
+        <!-- Contact Info -->
+        <div class="fade-up">
+          <div class="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 rounded-full px-4 py-2 mb-6">
+            <i data-lucide="mail" class="w-4 h-4"></i>
+            <span class="text-xs font-medium uppercase tracking-wider">Contact Us</span>
+          </div>
+
+          <h2 class="text-3xl sm:text-4xl font-semibold tracking-tight text-zinc-900 mb-4">
+            Let's Build a Greener Future Together
+          </h2>
+          <p class="text-zinc-500 leading-relaxed mb-10">
+            Have questions, ideas, or want to join our programs? We'd love to hear from you. Reach out through any of the channels below.
+          </p>
+
+          <div class="space-y-6">
+            <!-- Email -->
+            <a href="mailto:doppyg173@gmail.com" class="flex items-center gap-4 group">
+              <div class="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center group-hover:bg-emerald-600 transition-colors duration-300">
+                <i data-lucide="mail" class="w-5 h-5 text-emerald-600 group-hover:text-white transition-colors duration-300"></i>
+              </div>
+              <div>
+                <div class="text-xs text-zinc-400 uppercase tracking-wider font-medium">Email</div>
+                <div class="text-sm font-medium text-zinc-900 group-hover:text-emerald-600 transition-colors">doppyg173@gmail.com</div>
+              </div>
+            </a>
+
+            <!-- Phone -->
+            <a href="tel:0791300065" class="flex items-center gap-4 group">
+              <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center group-hover:bg-green-600 transition-colors duration-300">
+                <i data-lucide="phone" class="w-5 h-5 text-green-600 group-hover:text-white transition-colors duration-300"></i>
+              </div>
+              <div>
+                <div class="text-xs text-zinc-400 uppercase tracking-wider font-medium">Phone / WhatsApp</div>
+                <div class="text-sm font-medium text-zinc-900 group-hover:text-green-600 transition-colors">0791300065</div>
+              </div>
+            </a>
+
+            <!-- Instagram -->
+            <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-4 group">
+              <div class="w-12 h-12 bg-pink-100 rounded-xl flex items-center justify-center group-hover:bg-pink-600 transition-colors duration-300">
+                <i data-lucide="instagram" class="w-5 h-5 text-pink-600 group-hover:text-white transition-colors duration-300"></i>
+              </div>
+              <div>
+                <div class="text-xs text-zinc-400 uppercase tracking-wider font-medium">Instagram</div>
+                <div class="text-sm font-medium text-zinc-900 group-hover:text-pink-600 transition-colors">Follow us on Instagram</div>
+              </div>
+            </a>
+
+            <!-- TikTok -->
+            <a href="https://tiktok.com/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-4 group">
+              <div class="w-12 h-12 bg-zinc-200 rounded-xl flex items-center justify-center group-hover:bg-zinc-900 transition-colors duration-300">
+                <i data-lucide="music-2" class="w-5 h-5 text-zinc-600 group-hover:text-white transition-colors duration-300"></i>
+              </div>
+              <div>
+                <div class="text-xs text-zinc-400 uppercase tracking-wider font-medium">TikTok</div>
+                <div class="text-sm font-medium text-zinc-900 group-hover:text-zinc-600 transition-colors">Follow us on TikTok</div>
+              </div>
+            </a>
+          </div>
+
+          <!-- Social Media Buttons Row -->
+          <div class="flex gap-3 mt-10">
+            <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer" class="w-11 h-11 bg-white border border-zinc-200 rounded-xl flex items-center justify-center hover:bg-pink-50 hover:border-pink-200 transition-all duration-150 group">
+              <i data-lucide="instagram" class="w-4 h-4 text-zinc-400 group-hover:text-pink-600 transition-colors"></i>
+            </a>
+            <a href="https://tiktok.com/" target="_blank" rel="noopener noreferrer" class="w-11 h-11 bg-white border border-zinc-200 rounded-xl flex items-center justify-center hover:bg-zinc-100 hover:border-zinc-300 transition-all duration-150 group">
+              <i data-lucide="music-2" class="w-4 h-4 text-zinc-400 group-hover:text-zinc-900 transition-colors"></i>
+            </a>
+            <a href="mailto:doppyg173@gmail.com" class="w-11 h-11 bg-white border border-zinc-200 rounded-xl flex items-center justify-center hover:bg-emerald-50 hover:border-emerald-200 transition-all duration-150 group">
+              <i data-lucide="mail" class="w-4 h-4 text-zinc-400 group-hover:text-emerald-600 transition-colors"></i>
+            </a>
+            <a href="https://wa.me/254791300065" target="_blank" rel="noopener noreferrer" class="w-11 h-11 bg-white border border-zinc-200 rounded-xl flex items-center justify-center hover:bg-green-50 hover:border-green-200 transition-all duration-150 group">
+              <i data-lucide="message-circle" class="w-4 h-4 text-zinc-400 group-hover:text-green-600 transition-colors"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="fade-up">
+          <form id="contact-form" class="bg-white rounded-2xl p-8 sm:p-10 shadow-xl border border-zinc-100">
+            <h3 class="text-xl font-semibold tracking-tight mb-2">Send Us a Message</h3>
+            <p class="text-zinc-500 text-sm mb-8">Fill in the form below and we'll get back to you soon.</p>
+
+            <div class="space-y-5">
+              <div>
+                <label for="name" class="block text-sm font-medium text-zinc-700 mb-2">Full Name</label>
+                <input type="text" id="name" name="name" required placeholder="Your full name"
+                  class="w-full px-4 py-3 rounded-xl border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all placeholder:text-zinc-300">
+              </div>
+
+              <div>
+                <label for="email" class="block text-sm font-medium text-zinc-700 mb-2">Email Address</label>
+                <input type="email" id="email" name="email" required placeholder="your@email.com"
+                  class="w-full px-4 py-3 rounded-xl border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all placeholder:text-zinc-300">
+              </div>
+
+              <div>
+                <label for="phone" class="block text-sm font-medium text-zinc-700 mb-2">Phone Number (Optional)</label>
+                <input type="tel" id="phone" name="phone" placeholder="07XX XXX XXX"
+                  class="w-full px-4 py-3 rounded-xl border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all placeholder:text-zinc-300">
+              </div>
+
+              <div>
+                <label for="interest" class="block text-sm font-medium text-zinc-700 mb-2">I'm Interested In</label>
+                <select id="interest" name="interest"
+                  class="w-full px-4 py-3 rounded-xl border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all text-zinc-600">
+                  <option value="">Select an option</option>
+                  <option value="volunteer">Volunteering</option>
+                  <option value="education">Education Programs</option>
+                  <option value="livelihood">Green Livelihoods</option>
+                  <option value="partnership">Partnership</option>
+                  <option value="general">General Inquiry</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="message" class="block text-sm font-medium text-zinc-700 mb-2">Your Message</label>
+                <textarea id="message" name="message" rows="4" required placeholder="Tell us how you'd like to get involved..."
+                  class="w-full px-4 py-3 rounded-xl border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all placeholder:text-zinc-300 resize-none"></textarea>
+              </div>
+
+              <button type="submit" id="submit-btn"
+                class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-3.5 rounded-xl transition-all duration-150 hover:shadow-lg flex items-center justify-center gap-2">
+                <span id="btn-text">Send Message</span>
+                <i data-lucide="send" class="w-4 h-4" id="btn-icon"></i>
+                <svg id="btn-spinner" class="hidden animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
+                  <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-linecap="round" class="opacity-25"></circle>
+                  <path d="M4 12a8 8 0 018-8" stroke="currentColor" stroke-width="3" stroke-linecap="round" class="opacity-75"></path>
+                </svg>
+              </button>
+            </div>
+
+            <p class="text-xs text-zinc-400 mt-6 text-center">
+              By submitting, you agree to be contacted by GreenRoots Community.
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CTA BANNER ==================== -->
+  <section class="py-20 hero-gradient relative overflow-hidden">
+    <div class="absolute top-0 right-0 w-96 h-96 bg-emerald-400/10 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 left-0 w-72 h-72 bg-green-400/10 rounded-full blur-3xl"></div>
+
+    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-white tracking-tight mb-6">
+        The Best Time to Act is Now
+      </h2>
+      <p class="text-emerald-100/80 text-lg leading-relaxed mb-10 max-w-2xl mx-auto">
+        Every tree planted, every person educated, every sustainable practice adopted brings us closer to the future our community deserves.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="tel:0791300065" class="bg-white text-emerald-800 px-8 py-4 rounded-xl text-base font-medium hover:bg-emerald-50 transition-all duration-150 hover:shadow-xl inline-flex items-center justify-center gap-2">
+          <i data-lucide="phone" class="w-4 h-4"></i>
+          Call 0791300065
+        </a>
+        <a href="mailto:doppyg173@gmail.com" class="glass-panel text-white px-8 py-4 rounded-xl text-base font-medium hover:bg-white/20 transition-all duration-150 inline-flex items-center justify-center gap-2">
+          <i data-lucide="mail" class="w-4 h-4"></i>
+          Email Us
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="bg-zinc-950 text-zinc-400 pt-16 pb-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+        <!-- Brand -->
+        <div class="lg:col-span-1">
+          <a href="#hero" class="flex items-center gap-2.5 mb-4">
+            <div class="w-9 h-9 bg-emerald-600 rounded-lg flex items-center justify-center">
+              <i data-lucide="leaf" class="w-5 h-5 text-white"></i>
+            </div>
+            <span class="text-lg font-semibold text-white tracking-tight">GreenRoots</span>
+          </a>
+          <p class="text-sm leading-relaxed mb-6">
+            Educating, protecting, and empowering communities for a sustainable future.
+          </p>
+          <div class="flex gap-3">
+            <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer" class="w-9 h-9 bg-zinc-800 rounded-lg flex items-center justify-center hover:bg-emerald-600 transition-colors duration-150">
+              <i data-lucide="instagram" class="w-4 h-4 text-zinc-400 hover:text-white"></i>
+            </a>
+            <a href="https://tiktok.com/" target="_blank" rel="noopener noreferrer" class="w-9 h-9 bg-zinc-800 rounded-lg flex items-center justify-center hover:bg-emerald-600 transition-colors duration-150">
+              <i data-lucide="music-2" class="w-4 h-4 text-zinc-400 hover:text-white"></i>
+            </a>
+            <a href="mailto:doppyg173@gmail.com" class="w-9 h-9 bg-zinc-800 rounded-lg flex items-center justify-center hover:bg-emerald-600 transition-colors duration-150">
+              <i data-lucide="mail" class="w-4 h-4 text-zinc-400 hover:text-white"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+          <h4 class="text-white font-semibold text-sm mb-4">Quick Links</h4>
+          <ul class="space-y-3">
+            <li><a href="#about" class="text-sm hover:text-emerald-400 transition-colors">About Us</a></li>
+            <li><a href="#education" class="text-sm hover:text-emerald-400 transition-colors">Education</a></li>
+            <li><a href="#sustainability" class="text-sm hover:text-emerald-400 transition-colors">Sustainability</a></li>
+            <li><a href="#livelihoods" class="text-sm hover:text-emerald-400 transition-colors">Livelihoods</a></li>
+            <li><a href="#participate" class="text-sm hover:text-emerald-400 transition-colors">Get Involved</a></li>
+          </ul>
+        </div>
+
+        <!-- Programs -->
+        <div>
+          <h4 class="text-white font-semibold text-sm mb-4">Programs</h4>
+          <ul class="space-y-3">
+            <li><span class="text-sm">Environmental Workshops</span></li>
+            <li><span class="text-sm">Youth Eco-Clubs</span></li>
+            <li><span class="text-sm">Beekeeping Training</span></li>
+            <li><span class="text-sm">Tree Nursery Initiative</span></li>
+            <li><span class="text-sm">Clean Energy Access</span></li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <h4 class="text-white font-semibold text-sm mb-4">Contact</h4>
+          <ul class="space-y-3">
+            <li class="flex items-center gap-2 text-sm">
+              <i data-lucide="mail" class="w-3.5 h-3.5 text-emerald-500"></i>
+              <a href="mailto:doppyg173@gmail.com" class="hover:text-emerald-400 transition-colors">doppyg173@gmail.com</a>
+            </li>
+            <li class="flex items-center gap-2 text-sm">
+              <i data-lucide="phone" class="w-3.5 h-3.5 text-emerald-500"></i>
+              <a href="tel:0791300065" class="hover:text-emerald-400 transition-colors">0791300065</a>
+            </li>
+            <li class="flex items-center gap-2 text-sm">
+              <i data-lucide="instagram" class="w-3.5 h-3.5 text-emerald-500"></i>
+              <a href="https://instagram.com/" target="_blank" class="hover:text-emerald-400 transition-colors">Instagram</a>
+            </li>
+            <li class="flex items-center gap-2 text-sm">
+              <i data-lucide="music-2" class="w-3.5 h-3.5 text-emerald-500"></i>
+              <a href="https://tiktok.com/" target="_blank" class="hover:text-emerald-400 transition-colors">TikTok</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="border-t border-zinc-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p class="text-xs text-zinc-500">
+          © <span id="year"></span> GreenRoots Community. Founded by Gira Jonathan. All rights reserved.
+        </p>
+        <p class="text-xs text-zinc-600">
+          Protecting the environment, empowering the community.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== SCROLL TO TOP ==================== -->
+  <button id="scroll-top" class="fixed bottom-6 left-6 z-50 w-11 h-11 bg-emerald-600 text-white rounded-xl shadow-lg flex items-center justify-center opacity-0 translate-y-4 transition-all duration-300 hover:bg-emerald-700 hover:shadow-xl" aria-label="Scroll to top">
+    <i data-lucide="chevron-up" class="w-5 h-5"></i>
+  </button>
+
+  <!-- ==================== JAVASCRIPT ==================== -->
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Set current year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ===== NAVBAR SCROLL EFFECT =====
+    const navbar = document.getElementById('navbar');
+    const navInner = document.getElementById('nav-inner');
+    const navLinks = document.querySelectorAll('.nav-link-color');
+    const navText = document.querySelector('.nav-text-color');
+
+    function updateNav() {
+      const scrolled = window.scrollY > 60;
+      if (scrolled) {
+        navInner.style.background = 'rgba(255,255,255,0.92)';
+        navInner.style.backdropFilter = 'blur(16px)';
+        navInner.style.WebkitBackdropFilter = 'blur(16px)';
+        navInner.style.border = '1px solid rgba(0,0,0,0.06)';
+        navInner.style.boxShadow = '0 4px 25px rgba(0,0,0,0.06)';
+        navText.style.color = '#18181b';
+        navLinks.forEach(l => l.style.color = '#52525b');
+      } else {
+        navInner.style.background = 'transparent';
+        navInner.style.backdropFilter = 'none';
+        navInner.style.WebkitBackdropFilter = 'none';
+        navInner.style.border = 'none';
+        navInner.style.boxShadow = 'none';
+        navText.style.color = '#ffffff';
+        navLinks.forEach(l => l.style.color = 'rgba(255,255,255,0.8)');
+      }
+    }
+    window.addEventListener('scroll', updateNav);
+    updateNav();
+
+    // ===== MOBILE MENU =====
+    const mobileToggle = document.getElementById('mobile-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIcon = document.getElementById('menu-icon');
+    let menuOpen = false;
+
+    mobileToggle.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      mobileMenu.classList.toggle('hidden');
+      menuIcon.setAttribute('data-lucide', menuOpen ? 'x' : 'menu');
+      lucide.createIcons();
+    });
+
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        menuOpen = false;
+        menuIcon.setAttribute('data-lucide', 'menu');
+        lucide.createIcons();
+      });
+    });
+
+    // ===== SCROLL ANIMATIONS =====
+    const fadeEls = document.querySelectorAll('.fade-up');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+    fadeEls.forEach(el => observer.observe(el));
+
+    // ===== COUNTER ANIMATION =====
+    const counters = document.querySelectorAll('.counter');
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !entry.target.dataset.counted) {
+          entry.target.dataset.counted = 'true';
+          const target = parseInt(entry.target.dataset.target);
+          const duration = 2000;
+          const startTime = performance.now();
+
+          function updateCounter(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            // Ease out cubic
+            const eased = 1 - Math.pow(1 - progress, 3);
+            const current = Math.round(eased * target);
+
+            if (target >= 1000) {
+              entry.target.textContent = current.toLocaleString();
+            } else {
+              entry.target.textContent = current + (target === 60 || target === 40 ? '%' : '+');
+            }
+
+            if (progress < 1) {
+              requestAnimationFrame(updateCounter);
+            }
+          }
+          requestAnimationFrame(updateCounter);
+        }
+      });
+    }, { threshold: 0.5 });
+    counters.forEach(c => counterObserver.observe(c));
+
+    // ===== SCROLL TO TOP =====
+    const scrollTopBtn = document.getElementById('scroll-top');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 600) {
+        scrollTopBtn.style.opacity = '1';
+        scrollTopBtn.style.transform = 'translateY(0)';
+      } else {
+        scrollTopBtn.style.opacity = '0';
+        scrollTopBtn.style.transform = 'translateY(16px)';
+      }
+    });
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // ===== TOAST =====
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const msg = document.getElementById('toast-msg');
+      msg.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 4000);
+    }
+
+    // ===== CONTACT FORM =====
+    const contactForm = document.getElementById('contact-form');
+    const btnText = document.getElementById('btn-text');
+    const btnIcon = document.getElementById('btn-icon');
+    const btnSpinner = document.getElementById('btn-spinner');
+    const submitBtn = document.getElementById('submit-btn');
+
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // Show loading
+      btnText.textContent = 'Sending...';
+      btnIcon.classList.add('hidden');
+      btnSpinner.classList.remove('hidden');
+      submitBtn.disabled = true;
+      submitBtn.style.opacity = '0.7';
+
+      // Simulate send (replace with actual email service)
+      setTimeout(() => {
+        btnText.textContent = 'Send Message';
+        btnIcon.classList.remove('hidden');
+        btnSpinner.classList.add('hidden');
+        submitBtn.disabled = false;
+        submitBtn.style.opacity = '1';
+        contactForm.reset();
+        showToast('Message sent successfully! We\'ll get back to you soon.');
+      }, 1500);
+    });
+
+    // ===== ACTIVE NAV HIGHLIGHT =====
+    const sections = document.querySelectorAll('section[id]');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - 120;
+        if (window.scrollY >= sectionTop) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      document.querySelectorAll('nav a[href^="#"]').forEach(link => {
+        link.classList.remove('nav-active');
+        if (link.getAttribute('href') === '#' + current) {
+          link.classList.add('nav-active');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
